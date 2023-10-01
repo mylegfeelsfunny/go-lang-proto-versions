@@ -1,0 +1,91 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Domain/v2/Subdomain",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Subdomains"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/customers/users/{userId}/v1/subdomains": {
+      "get": {
+        "summary": "Get Subdomain",
+        "description": "Get list of user subdomains",
+        "operationId": "Subdomains_GetSubdomain",
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/v2GetSubdomainResponse"
+            }
+          },
+          "ErrorMessageResponse": {
+            "description": "Error Message Response with optional details. Details are for the customer. CxCode is optional and can be forwarded from customer to agent.",
+            "schema": {
+              "$ref": ".subdomains.v2.ErrorMessageResponse"
+            }
+          },
+          "ErrorResponse": {
+            "description": "Default Error Response. Message and code are developer centric and not for customer communication.",
+            "schema": {
+              "$ref": ".subdomains.v2.ErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "@inject_tag: validate:\"required,uuid4\"",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "subdomain"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "v2GetSubdomainResponse": {
+      "type": "object",
+      "properties": {
+        "breakingChange": {
+          "type": "string",
+          "title": "@inject_tag: validate:\"required\""
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "description": "Bearer token: \u003ctoken\u003e",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "externalDocs": {
+    "description": "px-subdomains",
+    "url": "https://github.com/StashInvest/px-proto/domains/subdomains/v2"
+  }
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package subdomains.v2;
+
+message GetSubdomainRequest {
+// @inject_tag: validate:"required,uuid4"
+  string userId = 1;
+}
+
+message GetSubdomainResponse {
+// @inject_tag: validate:"required"
+  string breaking_change = 1;
+}
+
+message Subdomain {
+  SubdomainToPayForSubscription subdomainToPayForSubscription = 1;
+}
+
+enum SubdomainToPayForSubscription {
+  SUBDOMAIN_UNSPECIFIED=0;
+  SUBDOMAIN_NOT_APPLICABLE=1;
+  SUBDOMAIN_CANNOT_PAY_FOR_SUBSCRIPTION=2;
+  SUBDOMAIN_CAN_PAY_FOR_SUBSCRIPTION_ONLY_FROM_INTERNAL_FUNDING=3;
+  SUBDOMAIN_CAN_PAY_FOR_SUBSCRIPTION_FROM_EXTERNAL_FUNDING=4;
+  SUBDOMAIN_PAID_FOR_SUBSCRIPTION=5;
+}
