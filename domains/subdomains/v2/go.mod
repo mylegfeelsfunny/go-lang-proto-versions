@@ -1,4 +1,4 @@
-module github.com/stashinvest/px-proto/domains/subdomains/v2
+module github.com/mylegfeelsfunny/go-lang-proto-versions/domains/subdomains/v2
 
 go 1.20
 
