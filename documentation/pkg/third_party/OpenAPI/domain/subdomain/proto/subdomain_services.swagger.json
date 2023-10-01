@@ -1,0 +1,111 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Domain/v1/Subdomain",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Subdomains"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/customers/users/{userId}/v1/subdomains": {
+      "get": {
+        "summary": "Get Subdomain",
+        "description": "Get list of user subdomains",
+        "operationId": "Subdomains_GetSubdomain",
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/v1GetSubdomainResponse"
+            }
+          },
+          "ErrorMessageResponse": {
+            "description": "Error Message Response with optional details. Details are for the customer. CxCode is optional and can be forwarded from customer to agent.",
+            "schema": {
+              "$ref": ".subdomains.v1.ErrorMessageResponse"
+            }
+          },
+          "ErrorResponse": {
+            "description": "Default Error Response. Message and code are developer centric and not for customer communication.",
+            "schema": {
+              "$ref": ".subdomains.v1.ErrorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "@inject_tag: validate:\"required,uuid4\"",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "subdomain"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "v1GetSubdomainResponse": {
+      "type": "object",
+      "properties": {
+        "subdomain": {
+          "$ref": "#/definitions/v1Subdomain",
+          "title": "@inject_tag: validate:\"required\""
+        }
+      }
+    },
+    "v1Subdomain": {
+      "type": "object",
+      "properties": {
+        "subdomainToPayForSubscription": {
+          "$ref": "#/definitions/v1SubdomainToPayForSubscription"
+        }
+      }
+    },
+    "v1SubdomainToPayForSubscription": {
+      "type": "string",
+      "enum": [
+        "SUBDOMAIN_UNSPECIFIED",
+        "SUBDOMAIN_NOT_APPLICABLE",
+        "SUBDOMAIN_CANNOT_PAY_FOR_SUBSCRIPTION",
+        "SUBDOMAIN_CAN_PAY_FOR_SUBSCRIPTION_ONLY_FROM_INTERNAL_FUNDING",
+        "SUBDOMAIN_CAN_PAY_FOR_SUBSCRIPTION_FROM_EXTERNAL_FUNDING",
+        "SUBDOMAIN_PAID_FOR_SUBSCRIPTION"
+      ],
+      "default": "SUBDOMAIN_UNSPECIFIED"
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "description": "Bearer token: \u003ctoken\u003e",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "externalDocs": {
+    "description": "px-subdomains",
+    "url": "https://github.com/StashInvest/px-proto/domains/subdomains/v1"
+  }
+}
